@@ -61,27 +61,6 @@ a {
   transform: translateY(0);
 }
 
-.footer-with-tree::before {
-  content: "";
-  position: absolute;
-  top: -9.8rem;
-  right: 0;
-  width: 15rem;
-  height: 15rem;
-  background-image: url("/saya-tree-silhouette.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top right;
-  pointer-events: none;
-  z-index: 10;
-}
-
-@media (min-width: 640px) {
-  .footer-with-tree::before {
-    right: 1.5rem;
-  }
-}
-
 @keyframes saya-loader-rise {
   0%,
   100% {

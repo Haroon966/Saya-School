@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { navigationLinks, siteConfig } from "@/lib/site";
+import { withBasePath } from "@/lib/with-base-path";
 
 export function SiteFooter() {
   return (
-    <footer className="footer-with-tree relative bg-[var(--dm-bg)] px-5 pb-5 pt-24 text-[var(--dm-text)] sm:px-8">
+    <footer className="relative bg-[var(--dm-bg)] px-5 pb-5 pt-24 text-[var(--dm-text)] sm:px-8">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-[9.8rem] right-0 z-10 h-60 w-60 bg-contain bg-no-repeat bg-top-right sm:right-6"
+        style={{ backgroundImage: `url(${withBasePath("/saya-tree-silhouette.png")})` }}
+      />
       <div className="mx-auto w-full max-w-[1200px]">
         <section className="relative z-20 mb-14 rounded-2xl border border-white/15 bg-white/[0.04] p-6 backdrop-blur-sm sm:p-8">
           <div className="flex flex-wrap items-center justify-between gap-5">

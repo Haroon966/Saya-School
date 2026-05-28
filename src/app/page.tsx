@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { courses, newsPosts, siteConfig } from "@/lib/site";
+import { withBasePath } from "@/lib/with-base-path";
 
 export const metadata: Metadata = {
   title: "Affordable Quality School for Underprivileged Children in Islamabad",
@@ -203,7 +204,7 @@ export default function Home() {
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${leader.image})` }}
+                  style={{ backgroundImage: `url(${withBasePath(leader.image)})` }}
                   aria-hidden="true"
                 />
                 <div className="relative z-10 flex min-h-[430px] flex-col justify-end">

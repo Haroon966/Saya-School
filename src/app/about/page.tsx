@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-8 sm:p-12">
+      <section className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-8 sm:p-12 saya-reveal">
         <div className="pointer-events-none absolute -right-20 -top-16 h-56 w-56 rounded-full bg-[var(--green-mid)]/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 left-4 h-56 w-56 rounded-full bg-[var(--gold)]/15 blur-3xl" />
         <div className="relative">

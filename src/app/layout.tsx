@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { BackToTop } from "@/components/BackToTop";
+import { RouteLoadingOverlay } from "@/components/route-loading-overlay";
+import { ScrollRevealProvider } from "@/components/scroll-reveal-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { RouteLoadingOverlay } from "@/components/route-loading-overlay";
+import { dmMono, dmSans, playfair } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const ogImageUrl = siteConfig.ogImagePath;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
@@ -32,11 +26,20 @@ export const metadata: Metadata = {
     title: "Saya School | Quality Education in Islamabad",
     description: siteConfig.description,
     siteName: "Saya School",
+    images: [
+      {
+        url: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "Saya School — quality education in Islamabad",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Saya School | Quality Education in Islamabad",
     description: siteConfig.description,
+    images: [ogImageUrl],
   },
 };
 
@@ -48,13 +51,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${dmMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[var(--bg)] text-[var(--ink)]">
         <RouteLoadingOverlay />
         <SiteHeader />
-        <main className="w-full flex-1 pt-24">{children}</main>
+        <main className="relative w-full flex-1 pt-[7.25rem]">
+          <ScrollRevealProvider>{children}</ScrollRevealProvider>
+        </main>
         <SiteFooter />
+        <BackToTop />
       </body>
     </html>
   );

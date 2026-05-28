@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ContentImage } from "@/components/content-image";
 import { newsPosts, siteConfig } from "@/lib/site";
 
 type Props = {
@@ -32,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       url: `${siteConfig.domain}/news/${post.slug}`,
       publishedTime: post.publishedAt,
+      images: [{ url: post.image, alt: post.imageAlt }],
     },
   };
 }
@@ -49,6 +52,7 @@ export default async function NewsDetailPage({ params }: Props) {
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
+    image: `${siteConfig.domain}${post.image}`,
     datePublished: post.publishedAt,
     author: {
       "@type": "Organization",
@@ -57,30 +61,55 @@ export default async function NewsDetailPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.domain}${siteConfig.logoPath}`,
+      },
     },
     mainEntityOfPage: `${siteConfig.domain}/news/${post.slug}`,
   };
 
   return (
-    <article className="mx-auto max-w-3xl">
-      <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-        {new Date(post.publishedAt).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
-      </p>
-      <h1 className="mt-3 text-4xl font-bold text-slate-900">{post.title}</h1>
-      <p className="mt-6 text-lg leading-8 text-slate-700">{post.excerpt}</p>
-      <p className="mt-6 leading-8 text-slate-700">
-        Saya School continues to invest in student growth through high-quality
-        teaching, practical exposure, and a supportive learning environment. This
-        update reflects our commitment to educational outcomes and community impact.
-      </p>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-    </article>
+    <div className="mx-auto w-full max-w-[1200px] px-5 py-10 sm:px-8">
+      <Link
+        href="/news"
+        className="inline-flex items-center gap-2 text-sm font-medium text-[var(--green-mid)] transition hover:text-[var(--green-deep)]"
+      >
+        ← Back to news
+      </Link>
+      <article className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-3xl border border-[var(--border)] bg-white shadow-sm">
+        <ContentImage src={post.image} alt={post.imageAlt} className="rounded-t-3xl" priority />
+        <div className="p-8 sm:p-12">
+          <p className="font-mono text-xs uppercase tracking-[0.08em] text-[var(--ink-muted)]">
+            {new Date(post.publishedAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+          <h1 className="font-display mt-4 text-4xl font-normal leading-tight text-[var(--ink)] sm:text-5xl">
+            {post.title}
+          </h1>
+          <div className="mt-8 border-t border-[var(--border)] pt-8">
+            <p className="text-lg font-medium leading-8 text-[var(--ink)]">{post.excerpt}</p>
+            <p className="mt-6 leading-8 text-[var(--ink-muted)]">
+              Saya School continues to invest in student growth through high-quality
+              teaching, practical exposure, and a supportive learning environment. This
+              update reflects our commitment to educational outcomes and community impact.
+            </p>
+            <p className="mt-6 leading-8 text-[var(--ink-muted)]">
+              We focus on developing core competencies in science, mathematics, technology, and
+              arts. Through these initiatives, we aim to eliminate educational disparities and
+              provide our students with the skills required to navigate and succeed in the modern
+              world.
+            </p>
+          </div>
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        />
+      </article>
+    </div>
   );
 }

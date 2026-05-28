@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navigationLinks, siteConfig } from "@/lib/site";
+import { navigationLinks, siteConfig, socialLinks } from "@/lib/site";
 import { withBasePath } from "@/lib/with-base-path";
 
 export function SiteFooter() {
@@ -17,10 +17,7 @@ export function SiteFooter() {
               <p className="font-mono text-xs uppercase tracking-[0.12em] text-[var(--green-pale)]">
                 Keep the mission growing
               </p>
-              <h2
-                className="mt-2 text-3xl font-normal text-white sm:text-4xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-              >
+              <h2 className="font-display mt-2 text-3xl font-normal text-white sm:text-4xl">
                 Stand with SAYA School
               </h2>
             </div>
@@ -35,41 +32,29 @@ export function SiteFooter() {
 
         <div className="relative z-20 grid gap-10 border-b border-white/10 pb-12 md:grid-cols-[1.7fr_1fr_1fr]">
           <section>
-          <h2
-            className="text-3xl font-medium text-white"
-            style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-          >
-            SAYA School
-          </h2>
+          <h2 className="font-display text-3xl font-medium text-white">SAYA School</h2>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/60">
             Empowering underprivileged children through free, quality education since 2008.
           </p>
           <p className="mt-5 font-mono text-xs uppercase tracking-[0.1em] text-white/40">
             Islamabad, Pakistan
           </p>
-          <div className="mt-6 flex gap-3 text-xs">
-            <a
-              href="https://facebook.com"
-              aria-label="Facebook"
-              className="rounded-full border border-white/20 px-3 py-2 text-white/70 transition hover:border-[var(--green-pale)] hover:text-[var(--green-pale)]"
-            >
-              FB
-            </a>
-            <a
-              href="https://instagram.com"
-              aria-label="Instagram"
-              className="rounded-full border border-white/20 px-3 py-2 text-white/70 transition hover:border-[var(--green-pale)] hover:text-[var(--green-pale)]"
-            >
-              IG
-            </a>
-            <a
-              href="https://twitter.com"
-              aria-label="Twitter"
-              className="rounded-full border border-white/20 px-3 py-2 text-white/70 transition hover:border-[var(--green-pale)] hover:text-[var(--green-pale)]"
-            >
-              X
-            </a>
-          </div>
+          {socialLinks.length > 0 ? (
+            <div className="mt-6 flex gap-3 text-xs">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="rounded-full border border-white/20 px-3 py-2 text-white/70 transition hover:border-[var(--green-pale)] hover:text-[var(--green-pale)]"
+                >
+                  {social.short}
+                </a>
+              ))}
+            </div>
+          ) : null}
           </section>
           <section>
             <h2 className="font-mono text-xs uppercase tracking-[0.1em] text-white/75">Quick Links</h2>
@@ -88,8 +73,8 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2.5 text-sm text-white/60">
               <li>{siteConfig.address}</li>
               <li>
-                <a href={`tel:${siteConfig.phone}`} className="transition hover:text-[var(--green-pale)]">
-                  {siteConfig.phone}
+                <a href={siteConfig.phones[0].href} className="transition hover:text-[var(--green-pale)]">
+                  {siteConfig.phones[0].display}
                 </a>
               </li>
               <li>

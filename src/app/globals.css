@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -22,21 +21,23 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--ink);
-  --font-sans: "DM Sans", var(--font-geist-sans), Arial, sans-serif;
-  --font-mono: "DM Mono", var(--font-geist-mono), monospace;
+  --font-sans: var(--font-dm-sans), Arial, sans-serif;
+  --font-mono: var(--font-dm-mono), monospace;
+  --font-display: var(--font-playfair), Georgia, serif;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "DM Sans", var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-dm-sans), Arial, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
 h1,
 h2,
-h3 {
-  font-family: "Playfair Display", Georgia, serif;
+h3,
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
   letter-spacing: -0.02em;
 }
 
@@ -52,13 +53,55 @@ a {
 
 .saya-reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .saya-reveal.in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+.saya-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.saya-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.saya-scale-up {
+  transform: scale(0.96);
+  transition: transform 0.3s ease;
+}
+.saya-scale-up:hover {
+  transform: scale(1);
+}
+
+@keyframes saya-blob-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(12px, -18px) scale(1.05);
+  }
+  100% {
+    transform: translate(-8px, 14px) scale(0.98);
+  }
+}
+
+.hero-blob {
+  animation: saya-blob-drift 18s ease-in-out infinite alternate;
+}
+
+.hero-blob:nth-child(4) {
+  animation-delay: -6s;
+}
+
+.hero-blob:nth-child(5) {
+  animation-delay: -12s;
 }
 
 @keyframes saya-loader-rise {
@@ -93,11 +136,9 @@ a {
 .saya-loader-dot:nth-child(2) {
   animation-delay: 0.15s;
 }
-
 .saya-loader-dot:nth-child(3) {
   animation-delay: 0.3s;
 }
-
 .saya-loader-dot:nth-child(4) {
   animation-delay: 0.45s;
 }
@@ -108,4 +149,32 @@ a {
 
 .saya-loader-line > span {
   animation: saya-loader-shimmer 1.4s ease-in-out infinite;
+}
+
+/* Volunteer page: readable line length & focus states */
+.volunteer-page {
+  --volunteer-max-text: 65ch;
+}
+
+.volunteer-page .prose-width {
+  max-width: var(--volunteer-max-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saya-reveal,
+  .saya-fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-blob {
+    animation: none;
+  }
+
+  .saya-loader,
+  .saya-loader-dot,
+  .saya-loader-line > span {
+    animation: none;
+  }
 }

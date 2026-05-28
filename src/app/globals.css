@@ -1,26 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --green-deep: #1a5c2a;
+  --green-mid: #3aaa5c;
+  --green-light: #72c47e;
+  --green-pale: #a8db89;
+  --ink: #0f1410;
+  --ink-muted: #4d5e52;
+  --border: #c8dece;
+  --surface: #f4faf5;
+  --bg: #fdfffe;
+  --gold: #c9973a;
+  --gold-pale: #fbf1e0;
+  --dm-bg: #0c1510;
+  --dm-surface: #131f16;
+  --dm-text: #e8f2ea;
+  --dm-muted: #7a9e82;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-sans: "DM Sans", var(--font-geist-sans), Arial, sans-serif;
+  --font-mono: "DM Mono", var(--font-geist-mono), monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "DM Sans", var(--font-geist-sans), Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+}
+
+.section-card {
+  @apply rounded-2xl border p-6 shadow-sm;
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.saya-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.saya-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer-with-tree::before {
+  content: "";
+  position: absolute;
+  top: -9.8rem;
+  right: 0;
+  width: 15rem;
+  height: 15rem;
+  background-image: url("/saya-tree-silhouette.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .footer-with-tree::before {
+    right: 1.5rem;
+  }
+}
+
+@keyframes saya-loader-rise {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes saya-loader-shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+.saya-loader {
+  animation: saya-loader-rise 2.6s ease-in-out infinite;
+}
+
+.saya-loader-dot {
+  animation: saya-loader-rise 1s ease-in-out infinite;
+}
+
+.saya-loader-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.saya-loader-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.saya-loader-dot:nth-child(4) {
+  animation-delay: 0.45s;
+}
+
+.saya-loader-line {
+  position: relative;
+}
+
+.saya-loader-line > span {
+  animation: saya-loader-shimmer 1.4s ease-in-out infinite;
 }

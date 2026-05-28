@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Saya School Website (SEO-First)
 
-## Getting Started
+This is a Next.js App Router project configured for static export (`out/`) and can be
+deployed to either Hostinger shared hosting or GitHub Pages.
 
-First, run the development server:
+## Prepare repository for GitHub
+
+1. Create a new repository on GitHub.
+2. Push this project to the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/<your-username>/<your-repo>.git
+git push -u origin main
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. In GitHub, open **Settings → Pages** and set:
+   - **Source**: `GitHub Actions`
+4. Keep the default branch as `main` (the workflow deploys from pushes to `main`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+## Build for Hostinger
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This generates the static website in the `out/` folder.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy to GitHub Pages
 
-## Deploy on Vercel
+This repo includes `.github/workflows/deploy-pages.yml` which automatically:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- installs dependencies
+- builds the Next.js static export
+- uploads `out/` as a Pages artifact
+- deploys to GitHub Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Notes
+
+- For project pages (`https://<user>.github.io/<repo>/`), `basePath` and asset prefix
+  are auto-configured during GitHub Actions builds.
+- For user/org pages (`https://<user>.github.io/`), no `basePath` is applied.
+- After the first successful workflow run, your Pages URL appears in the workflow
+  output and in **Settings → Pages**.
+
+## Deploy to Hostinger shared hosting
+
+1. In Hostinger hPanel, open **File Manager** for your domain.
+2. Go to `public_html`.
+3. Delete old website files (after backup).
+4. Upload the full contents of local `out/` into `public_html`.
+5. Confirm these files exist in `public_html`:
+   - `.htaccess`
+   - `robots.txt`
+   - `sitemap.xml`
+6. Visit your domain and test key pages:
+   - `/`
+   - `/about`
+   - `/courses`
+   - `/news`
+   - `/contact`
+   - `/donate`
+
+## SEO checklist after go-live
+
+1. Add your site property in [Google Search Console](https://search.google.com/search-console/about).
+2. Verify ownership via DNS record (recommended).
+3. Submit sitemap URL: `https://saya.edu.pk/sitemap.xml`.
+4. Request indexing for home and major pages.
+5. Add GA4 tracking in layout when measurement ID is ready.
+6. Monitor performance and indexing weekly.
+
+## Implemented SEO features
+
+- Route-level metadata (title, description, canonical, Open Graph).
+- `robots.txt` and generated `sitemap.xml`.
+- JSON-LD structured data for organization and articles.
+- Static, crawlable routes with clean internal linking.
+- 404 page and Hostinger-compatible rewrite rules.

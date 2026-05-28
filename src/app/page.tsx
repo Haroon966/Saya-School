@@ -60,7 +60,7 @@ export default function Home() {
       <section className="relative -mt-24 flex min-h-[100lvh] flex-col justify-center overflow-hidden px-5 pb-12 pt-28 sm:px-8">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-y-0 right-0 w-full">
-            <Image src="/childrens.jpg" alt="" fill priority className="object-cover " />
+            <Image src={withBasePath("/childrens.jpg")} alt="" fill priority className="object-cover " />
           </div>
           <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[var(--bg)] via-[var(--bg)]/95 via-45% to-transparent" />
           <div className="absolute -right-20 -top-24 h-80 w-80 rounded-full bg-[var(--green-mid)]/20 blur-3xl" />

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navigationLinks } from "@/lib/site";
+import { withBasePath } from "@/lib/with-base-path";
 
 const navItems = navigationLinks.filter((item) => item.label !== "Success Stories");
 
@@ -28,7 +29,7 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-[1200px] items-center gap-6 px-5 py-4 sm:px-8">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/logo.jpg"
+            src={withBasePath("/logo.jpg")}
             alt="SAYA School logo"
             width={36}
             height={36}

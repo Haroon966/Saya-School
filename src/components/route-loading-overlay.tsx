@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { withBasePath } from "@/lib/with-base-path";
 
 export function RouteLoadingOverlay() {
   const pathname = usePathname();
@@ -57,7 +58,7 @@ export function RouteLoadingOverlay() {
 
         <article className="saya-loader relative w-full max-w-xl p-8 text-center backdrop-blur-sm sm:p-10">
           <Image
-            src="/logo.jpg"
+            src={withBasePath("/logo.jpg")}
             alt="SAYA School logo"
             width={80}
             height={80}
